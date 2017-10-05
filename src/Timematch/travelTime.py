@@ -113,3 +113,6 @@ def loopMatch(downData,upData,dayNum,maxtime1=900,mintime1=40,down_direction1=3)
         match_total_final.append(match_final)
         match_total_rate.append(match_rate)
     return match_total_tt,match_total_final,match_total_rate
+
+
+
