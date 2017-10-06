@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np
 import datetime
 import cPickle as pickle
+import matplotlib.pyplot as plt
 
 # 匹配行程时间函数
 # 原始数据第1列车牌，第2列过车时刻，第3列车道，第4列为进口道方向，第5列为车型；
@@ -254,10 +255,25 @@ def loopDeal(match_total_final, claneNum):
     return tt_deal
 
 
+def scatterTime(data):
+    for i in range(len(data)):
+        fig, ax = plt.subplots(figsize=(15, 10))
+        plt.scatter(data[i].iloc[:,1],data[i].iloc[:,-1],s=8)
+        plt.show()
+
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
-    downData, upData, dayNum = openfile(inpath1=r'C:\Users\wutongshu\Desktop\贵阳数据\10-05zh_zy.csv',
-                                           inpath2=r'C:\Users\wutongshu\Desktop\贵阳数据\10-05rj_zy.csv')
-    match_total_tt, match_total_final, match_total_rate=loopMatch(start='2017-06-02', end='2017-07-15', downData=downData, upData=upData,
+    data, upData, dayNum = openfile(inpath1=r'C:\Users\wutongshu\Desktop\贵阳数据\10-05zh_zy.csv',
+                                    inpath2=r'C:\Users\wutongshu\Desktop\贵阳数据\10-05rj_zy.csv')
+    match_total_tt, match_total_final, match_total_rate=loopMatch(start='2017-06-02', end='2017-07-15', downData=data, upData=upData,
                                                                   maxtime1=900, mintime1=40, down_direction1=3)
     # matchData=loadObject(path0=r'C:\Users\wutongshu\Desktop\雨天数据\travelTimeFinal.txt')
     matchDataDeal=loopDeal(match_total_final=match_total_final, claneNum=[1,2,3,4])
