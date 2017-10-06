@@ -6,7 +6,7 @@ Created on Tue Apr 11 13:46:30 2017
 """
 import pandas as pd
 import numpy as np
-
+import datetime
 
 
 #匹配行程时间函数
@@ -93,12 +93,15 @@ def match_traveltime(up_data,down_data,maxtime,mintime,down_direction):
 
 
 #循环匹配函数,前面为上下游数据，以及天，后面为匹配函数的主要参数
-def loopMatch(downData,upData,dayNum,maxtime1=900,mintime1=40,down_direction1=3):
+def loopMatch(start,end,downData,upData,maxtime1=900,mintime1=40,down_direction1=3):
     match_total_tt=[]
     match_total_final=[]
     match_total_rate=[]
     #匹配车牌行程时间，按天分别匹配
-    for i in dayNum:
+    start = datetime.datetime.strptime(start, "%Y-%m-%d")
+    end = datetime.datetime.strptime(end, "%Y-%m-%d")
+    date_generated = [start + datetime.timedelta(days=x) for x in range(0, (end - start).days,7)]
+    for i in date_generated:
         down_data2=downData[downData.iloc[:,-1]==i]
         up_data2=upData[upData.iloc[:,-1]==i]
         if (len(down_data2)==0)|(len(up_data2)==0):
@@ -115,4 +118,24 @@ def loopMatch(downData,upData,dayNum,maxtime1=900,mintime1=40,down_direction1=3)
     return match_total_tt,match_total_final,match_total_rate
 
 
+#原始数据第1列车牌，第2列过车时刻，第3列车道，第4列为进口道方向，第5列为车型；
+def openfile(inpath1 = r"C:\Users\wutongshu\Desktop\贵阳数据\zh_zy1201-1215.csv", inpath2 = r"C:\Users\wutongshu\Desktop\贵阳数据\rj_zy1201-1215.csv"):
+    uipath1 = unicode(inpath1 , "utf8")
+    uipath2 = unicode(inpath2 , "utf8")
+    down_data=pd.read_csv(uipath1)
+    up_data=pd.read_csv(uipath2)
+    down_data=down_data.iloc[:,[0,1,4,3,2]]
+    up_data=up_data.iloc[:,[0,1,4,3,2]]
+    down_data.iloc[:,2]=pd.to_datetime(down_data.iloc[:,2])
+    up_data.iloc[:,2]=pd.to_datetime(up_data.iloc[:,2])
+    down_data['day']=down_data.iloc[:,2].apply(lambda x:100*x.month+x.day)
+    up_data['day']=up_data.iloc[:,2].apply(lambda x:100*x.month+x.day)
+    down_data['sj']=down_data.iloc[:,2].apply(lambda x:3600*x.hour+60*x.minute+x.second)
+    up_data['sj']=up_data.iloc[:,2].apply(lambda x:3600*x.hour+60*x.minute+x.second)
+    day_num=down_data.day.unique()
+    return down_data,up_data,day_num
 
+
+
+if __name__=="__main__":
+    down_data, up_data, day_num=openfile(inpath1=r'C:\Users\wutongshu\Desktop\贵阳数据\10-05rj_zy.csv',inpath2=r'C:\Users\wutongshu\Desktop\贵阳数据\10-05zh_zy.csv')
