@@ -9,7 +9,7 @@ import numpy as np
 import datetime
 import cPickle as pickle
 import matplotlib.pyplot as plt
-
+import seaborn as sns
 # 匹配行程时间函数
 # 原始数据第1列车牌，第2列过车时刻，第3列车道，第4列为进口道方向，第5列为车型；
 
@@ -257,11 +257,33 @@ def loopDeal(match_total_final, claneNum):
 
 def scatterTime(data):
     for i in range(len(data)):
+        if pictureName>630:
+            pictureName=pictureName+70
         fig, ax = plt.subplots(figsize=(15, 10))
         plt.scatter(data[i].iloc[:,1],data[i].iloc[:,-1],s=8)
+        plt.title(str(pictureName)+''+'travel time')
         plt.show()
 
+def distTime(data):
+    for i in range(len(data)):
+        pictureName=i*7+602
+        if pictureName>630:
+            pictureName=pictureName+70
+        fig, ax = plt.subplots(figsize=(15, 10))
+        sns.distplot(data[i].iloc[:,-1])
+        plt.title(str(pictureName)+' '+'head time')
+        plt.xlim(0,800)
+        plt.ylim(0,0.01)
+        plt.show()
 
+def ttDesci(path0,data):
+    path1 = unicode(path0, 'utf-8')
+    for i in range(len(data)):
+        pictureName = i * 7 + 602
+        if pictureName > 630:
+            pictureName = pictureName + 70
+        with open(path1, 'a+') as f:
+            f.write(str(pictureName) + '\n' + str(pd.to_numeric(data[i].iloc[:, -1]).describe()) + '\n')
 
 
 
