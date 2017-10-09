@@ -103,7 +103,7 @@ def loopMatch(start, end, downData, upData, maxtime1=900, mintime1=40, down_dire
     end = datetime.datetime.strptime(end, "%Y-%m-%d")
     date_generated = [start + datetime.timedelta(days=x) for x in range(0, (end - start).days, 7)]
     for i in date_generated:
-        print i+'begin'
+        print str(i)+'begin'
         down_data2 = downData[downData.iloc[:, -2] == (i.month*100+i.day)]
         up_data2 = upData[upData.iloc[:, -2] == (i.month*100+i.day)]
         if (len(down_data2) == 0) | (len(up_data2) == 0):
@@ -299,7 +299,7 @@ if __name__ == "__main__":
                                                                   maxtime1=900, mintime1=40, down_direction1=3)
     # matchData=loadObject(path0=r'C:\Users\wutongshu\Desktop\雨天数据\travelTimeFinal.txt')
     matchDataDeal=loopDeal(match_total_final=match_total_final, claneNum=[1,2,3,4])
-    writeObject(path0=r'C:\Users\wutongshu\Desktop\雨天数据\0602travelTimeDeal.txt', data=matchDataDeal)
+    # writeObject(path0=r'C:\Users\wutongshu\Desktop\雨天数据\0602travelTimeDeal.txt', data=matchDataDeal)
 
 
 
