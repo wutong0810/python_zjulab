@@ -6,6 +6,7 @@ Created on Tue Apr 11 13:46:30 2017
 """
 from src.Funcs.allFuns import *
 from src.Timematch.travelTime import *
+from src.Timematch.headtime import *
 
 
 
@@ -39,4 +40,4 @@ def main():
 
 
 if __name__=='__main__':
-    traveltime()
+    main()

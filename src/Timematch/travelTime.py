@@ -257,6 +257,7 @@ def loopDeal(match_total_final, claneNum):
 
 def scatterTime(data):
     for i in range(len(data)):
+        pictureName=i*7+602
         if pictureName>630:
             pictureName=pictureName+70
         fig, ax = plt.subplots(figsize=(15, 10))
