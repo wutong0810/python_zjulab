@@ -72,5 +72,6 @@ def staDesc(path0,data,filterK):
 if __name__=="__main__":
     dataSorted=carSort(path0=r'C:\Users\wutongshu\Desktop\贵阳数据\10-05rj_zy.csv')
     dataHeadTime=getHeadTime(data=dataSorted,start='2017-06-02',end='2017-07-15',direction=2,clane=[3,4,5])
-    makePicDist(dataHeadTime,filterK=50,path0=r'C:\Users\wutongshu\Desktop\雨天数据\0602headTime')
+    writeObject(path0=r'C:\Users\wutongshu\Desktop\雨天数据\0602headTimeDeal.txt',data=dataHeadTime)
+    # makePicDist(dataHeadTime,filterK=50,path0=r'C:\Users\wutongshu\Desktop\雨天数据\0602headTime')
     # staDesc(path0=r'C:\Users\wutongshu\Desktop\雨天数据\0602headTime.txt',data=dataHeadTime,filterK=50)
