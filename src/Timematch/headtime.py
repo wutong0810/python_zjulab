@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from src.Timematch.travelTime import *
 import seaborn as sns
+import matplotlib as mpl
 
 
 
@@ -37,13 +38,16 @@ def getHeadTime(data,start,end,direction,clane):
 
 def makePicDist(data,filterK,path0):
     dayNum = data.iloc[:,-3].unique()
+    sns.set_style("whitegrid")
+    mpl.rc('xtick', labelsize=20)
+    mpl.rc('ytick', labelsize=20)
     for i in dayNum:
         dataMedium=data[data.iloc[:,-3]==i]
         dataMediumFilter=dataMedium[dataMedium.iloc[:,-1]<filterK]
         # print i
         # print dataMediumFilter.iloc[:,-1].describe()
         fig, ax = plt.subplots(figsize=(15, 10))
-        plt.title(str(i)+''+'head time distribution')
+        # plt.title(str(i)+''+'head time distribution')
         sns.distplot(dataMediumFilter.iloc[:,-1],bins=50)
         plt.ylim(0,0.2)
         plt.xlim(0,10)

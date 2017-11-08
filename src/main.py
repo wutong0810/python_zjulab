@@ -13,7 +13,9 @@ from src.Timematch.headtime import *
 
 def traveltime():
     travelTimeFilter = loadObject(path0=r'C:\Users\wutongshu\Desktop\雨天数据\0602travelTimeDeal.txt')
+    travelTimeOril = loadObject(path0=r'C:\Users\wutongshu\Desktop\雨天数据\0602traveloril.txt')
     scatterTime(travelTimeFilter)
+    scatterTime(travelTimeOril)
     distTime(travelTimeFilter)
     ttDesci(path0=r'C:\Users\wutongshu\Desktop\雨天数据\0602TravelTimeSta.txt',data=travelTimeFilter)
 
@@ -33,8 +35,6 @@ def main():
     traveltime()
     headtime()
     countArea()
-
-
 
 
 

@@ -10,6 +10,7 @@ import datetime
 import cPickle as pickle
 import matplotlib.pyplot as plt
 import seaborn as sns
+import matplotlib as mpl
 # 匹配行程时间函数
 # 原始数据第1列车牌，第2列过车时刻，第3列车道，第4列为进口道方向，第5列为车型；
 
@@ -256,6 +257,8 @@ def loopDeal(match_total_final, claneNum):
 
 
 def scatterTime(data):
+    mpl.rc('xtick', labelsize=20)
+    mpl.rc('ytick', labelsize=20)
     for i in range(len(data)):
         pictureName=i*7+602
         if pictureName>630:
@@ -272,7 +275,7 @@ def distTime(data):
             pictureName=pictureName+70
         fig, ax = plt.subplots(figsize=(15, 10))
         sns.distplot(data[i].iloc[:,-1])
-        plt.title(str(pictureName)+' '+'head time')
+        plt.title(str(pictureName)+' '+'travel time')
         plt.xlim(0,800)
         plt.ylim(0,0.01)
         plt.show()
@@ -298,9 +301,10 @@ if __name__ == "__main__":
                                     inpath2=r'C:\Users\wutongshu\Desktop\贵阳数据\10-05rj_zy.csv')
     match_total_tt, match_total_final, match_total_rate=loopMatch(start='2017-06-02', end='2017-07-15', downData=data, upData=upData,
                                                                   maxtime1=900, mintime1=40, down_direction1=3)
-    # matchData=loadObject(path0=r'C:\Users\wutongshu\Desktop\雨天数据\travelTimeFinal.txt')
-    matchDataDeal=loopDeal(match_total_final=match_total_final, claneNum=[1,2,3,4])
-    # writeObject(path0=r'C:\Users\wutongshu\Desktop\雨天数据\0602travelTimeDeal.txt', data=matchDataDeal)
+    writeObject(path0=r'C:\Users\wutongshu\Desktop\雨天数据\0602traveloril.txt', data=match_total_final)
+    # # matchData=loadObject(path0=r'C:\Users\wutongshu\Desktop\雨天数据\travelTimeFinal.txt')
+    # matchDataDeal=loopDeal(match_total_final=match_total_final, claneNum=[1,2,3,4])
+    # # writeObject(path0=r'C:\Users\wutongshu\Desktop\雨天数据\0602travelTimeDeal.txt', data=matchDataDeal)
 
 
 
